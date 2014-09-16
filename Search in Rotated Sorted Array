@@ -1,0 +1,27 @@
+public class Solution {
+	// 这道题目假设了原来的排序是默认升序列
+	public int search(int[] A, int target) {
+		int first = 0, last = A.length - 1;
+		while (first <= last) {
+			int mid = (first + last) / 2;
+			if (A[mid] == target) {
+				return mid;
+			}
+			if (A[mid] >= A[first]) {// 其至少前一半是升序列
+				if (A[first] <= target && A[mid] >= target) {
+					last = mid;
+				} else {
+					first = mid + 1;
+				}
+			} else {// 其至少后一半是升序列
+				if (A[mid] <= target && A[last] >= target) {
+					first = mid;
+				} else {
+					last = mid - 1;
+				}
+			}
+		}
+		return -1;
+	}
+
+}
